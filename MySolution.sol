@@ -8,8 +8,7 @@ contract DegenToken is ERC20, Ownable {
     event Redeem(address indexed from, uint256 itemId, uint256 quantity);
 
     // Constructor to initialize the token with the name "Degen Token" and symbol "DGNT"
-    constructor() ERC20("Degen Token", "DGNT") Ownable(msg.sender){
-    }
+    constructor() ERC20("Degen Token", "DGNT") Ownable(msg.sender) {}
 
     // Struct to represent an item in the in-game store
     struct Item {
@@ -18,7 +17,14 @@ contract DegenToken is ERC20, Ownable {
         uint256 quantity;
     }
 
+    // Struct to represent a player's inventory
+    struct PlayerInventory {
+        uint256 itemId;
+        uint256 quantity;
+    }
+
     mapping(uint256 => Item) public storeItems;
+    mapping(address => PlayerInventory[]) public playerInventories;
     uint256 public itemCount;
 
     // Function to mint new tokens (only the owner can do this)
@@ -27,6 +33,16 @@ contract DegenToken is ERC20, Ownable {
         require(value > 0, "Invalid value");
 
         _mint(to, value);
+    }
+
+    // Function to transfer and burn tokens (called during redemption)
+    function transferAndBurn(address from, address to, uint256 amount) internal {
+        require(from != address(0), "Invalid from address");
+        require(to != address(0), "Invalid to address");
+        require(amount > 0, "Amount must be greater than zero");
+
+        _transfer(from, to, amount);
+        _burn(to, amount);
     }
 
     // Function to redeem tokens for items in the in-game store
@@ -40,8 +56,23 @@ contract DegenToken is ERC20, Ownable {
         // Check if the player has enough tokens to redeem the items
         require(balanceOf(msg.sender) >= totalCost, "Insufficient balance");
 
-        _transfer(msg.sender, owner(), totalCost);
+        // Transfer tokens from player to owner and then burn them
+        transferAndBurn(msg.sender, owner(), totalCost);
         storeItems[itemId].quantity -= quantity;
+
+        // Add the redeemed items to the player's inventory
+        bool itemFound = false;
+        for (uint256 i = 0; i < playerInventories[msg.sender].length; i++) {
+            if (playerInventories[msg.sender][i].itemId == itemId) {
+                playerInventories[msg.sender][i].quantity += quantity;
+                itemFound = true;
+                break;
+            }
+        }
+
+        if (!itemFound) {
+            playerInventories[msg.sender].push(PlayerInventory(itemId, quantity));
+        }
 
         emit Redeem(msg.sender, itemId, quantity);
     }
