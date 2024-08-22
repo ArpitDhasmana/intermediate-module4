@@ -1,10 +1,10 @@
 # Degen Token
 
-Simple overview of use/purpose.
+Degen Token (DGNT) is an ERC20 token designed to serve as both a cryptocurrency and an in-game currency for decentralized applications.
 
 ## Description
 
-Degen Token (DGNT) is an ERC20 token designed to serve both as a cryptocurrency and an in-game currency for decentralized applications. It includes features for minting new tokens, redeeming tokens for items in an in-game store, and burning tokens. The contract owner can add new items to the store, which players can then purchase using their DGNT tokens. The smart contract is built using Solidity and leverages the OpenZeppelin library for secure and efficient implementation.
+Degen Token (DGNT) is a smart contract built using Solidity and leverages the OpenZeppelin library for secure and efficient implementation. It includes features for minting new tokens, redeeming tokens for items in an in-game store, and burning tokens. The contract owner can add new items to the store, which players can then purchase using their DGNT tokens.
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ Degen Token (DGNT) is an ERC20 token designed to serve both as a cryptocurrency 
      - Ensure MetaMask is connected to the Avalanche test network.
      - Deploy the contract using the MetaMask wallet.
 
-### Executing program
+### Executing Program
 
 * How to run the program:
   1. **Minting tokens:**
@@ -59,7 +59,7 @@ Degen Token (DGNT) is an ERC20 token designed to serve both as a cryptocurrency 
 
 ## Help
 
-Any advice for common problems or issues:
+For common issues:
 * Ensure you have sufficient balance for the operations you're trying to perform.
 * Verify the item ID exists and has enough quantity for redemption.
 * Confirm the contract is deployed correctly and you're interacting with the correct address.
@@ -69,7 +69,7 @@ For more assistance, you can use the Remix IDE console to interact directly with
 ## Authors
 
 Arpit Dhasmana  
-[@TwitterHandle](https://twitter.com/TwitterHandle)
+contact: arpitdhasmana71@gmail.com
 
 ## License
 
