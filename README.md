@@ -8,7 +8,7 @@ Degen Token (DGNT) is a smart contract built using Solidity and leverages the Op
 
 ## Getting Started
 
-### Installing
+### Installing  
 
 * Ensure you have the following:
   - MetaMask wallet
